@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from SreekanthApp import views
+from SreekanthApp import ListViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('employees/', views.Employees_List),
-    path('employees/<int:id>/', views.Employee_Details)
+    path('employees/<int:id>/', views.Employee_Details),
+
+    path('departments/', ListViews.Department_List),
 ]
