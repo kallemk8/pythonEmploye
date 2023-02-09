@@ -6,6 +6,63 @@ from .serializers import EmployeeSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import mixins, generics
+
+
+
+class Employees_List(generics.ListCreateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+'''
+    ==========All generics ===========
+
+    createAPIView
+    ListAPIview
+    RetrieveAPIView
+    DestroyAPIView
+    UpdateAPIView
+
+    ListCreateAPIView
+    RetrieveUpdateAPIView
+    RetrieveDestroyAPIView
+    RetrieveUpdateDestroyAPIView
+
+    =========Mixin Classes Action Metods
+
+    ListModelMixin List()
+    CreateModelMixin create()
+    RetrieveModelMixin retrieve()
+    UpdateModelMixin   update()
+    DestroyModelMixin  Destory()
+
+
+'''
+
+class Employee_Details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+'''
+class Employees_List(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    def get(self, request):
+        return self.list(request)
+    def post(self, request):
+        return self.create(request)
+class Employee_Details(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView, mixins.DestroyModelMixin):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
+    def put(self, request, pk):
+        return self.update(request, pk)
+    def delete(self, request, pk):
+        return self.destroy(request, pk)
+'''
+
+'''
 @api_view(['GET', 'POST'])
 def Employees_List(request):
    if request.method == "GET":
@@ -36,3 +93,4 @@ def Employee_Details(request, id):
     elif request.method == "DELETE":
        employee.delete()
        return Response(status=status.HTTP_404_NOT_FOUND)
+'''

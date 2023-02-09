@@ -19,8 +19,8 @@ from SreekanthApp import views
 from SreekanthApp import ListViews
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('employees/', views.Employees_List),
-    path('employees/<int:id>/', views.Employee_Details),
+    path('employees/', views.Employees_List.as_view()),
+    path('employees/<int:pk>/', views.Employee_Details.as_view()),
 
     path('departments/', ListViews.Department_List),
 ]
